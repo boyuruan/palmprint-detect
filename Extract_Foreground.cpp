@@ -24,9 +24,7 @@ int main(int argc, char* argv[])
 	int count = 0;
 	Mat* frame = new Mat[numberOfFrames];
 	Mat* foreground = new Mat[numberOfFrames];
-	double alpha = 0;
-	cout << "Input alpha: ";
-	cin >> alpha;
+	double alpha = 0.001;
 	for (; count < numberOfFrames; count++)
 	{
 		vid.read(frame[count]);
