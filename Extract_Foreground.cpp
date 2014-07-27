@@ -24,16 +24,24 @@ int main(int argc, char* argv[])
 	int count = 0;
 	Mat* frame = new Mat[numberOfFrames];
 	Mat* foreground = new Mat[numberOfFrames];
-	double alpha = 0.001;
+	double alpha = 0.003;
 	for (; count < numberOfFrames; count++)
 	{
 		vid.read(frame[count]);
+		
+		cvtColor(frame[count], frame[count], CV_RGB2Lab);
+		vector<Mat> channels;
+		split(frame[count], channels);
+		Mat a = channels.at(1);
+		Mat L = Mat::zeros(Size(a.cols, a.rows), CV_8U);
+		channels.at(0) = L;
+		merge(channels, frame[count]);
 
 		mog(frame[count], foreground[count], alpha);
 		//medianBlur(foreground, foreground, 7);
 		//gmg(frame[count], foreground, alpha);
 		cout << "current position: " << count + 1 << endl;
-		threshold(foreground[count], foreground[count], 250, 255, CV_THRESH_BINARY_INV);
+		threshold(foreground[count], foreground[count], 128, 255, CV_THRESH_BINARY_INV);
 		//adaptiveThreshold(foreground, foreground, 255, CV_ADAPTIVE_THRESH_MEAN_C, CV_THRESH_BINARY_INV, 25, 10);
 		//imshow("Extraced Foreground", foreground);
 		//waitKey(5);
@@ -46,7 +54,7 @@ int main(int argc, char* argv[])
 		*/
 	}
 	//double* model = Modeling(frame, foreground, numberOfFrames);
-	int total = Modeling(frame, foreground, numberOfFrames);
-	cout << total << endl;
+	//int total = Modeling(frame, foreground, numberOfFrames);
+	//cout << total << endl;
 	return 0;
 }
