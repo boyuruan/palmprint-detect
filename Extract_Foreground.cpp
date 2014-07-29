@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
 		merge(channels, frame[count]);
 
 		mog(frame[count], foreground[count], alpha);
-		threshold(foreground[count], foreground[count], 128, 255, CV_THRESH_BINARY_INV);
+		threshold(foreground[count], foreground[count], 250, 255, CV_THRESH_BINARY_INV);
 	}
 	return 0;
 }
