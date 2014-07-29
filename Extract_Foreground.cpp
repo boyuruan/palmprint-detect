@@ -40,6 +40,8 @@ int main(int argc, char* argv[])
 		threshold(foreground[count], foreground[count], 250, 255, CV_THRESH_BINARY_INV);
 	}
 	Mat M = Mask(original, foreground, numberOfFrames);
+	M.convertTo(M, CV_8U);
+	threshold(M, M, 0, 255, CV_THRESH_BINARY);
 	imshow("Mask", M);
 	waitKey();
 	return 0;
