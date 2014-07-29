@@ -7,8 +7,7 @@
 using namespace cv;
 using namespace std;
 
-void imageout(Mat*, int);
-int Modeling(Mat*, Mat*, int);
+
 
 int main(int argc, char* argv[])
 {
