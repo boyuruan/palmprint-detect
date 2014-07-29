@@ -7,7 +7,7 @@
 using namespace cv;
 using namespace std;
 
-void Mask(Mat*, Mat*, int);
+Mat Mask(Mat*, Mat*, int);
 
 int main(int argc, char* argv[])
 {
@@ -39,6 +39,8 @@ int main(int argc, char* argv[])
 		mog(frame[count], foreground[count], alpha);
 		threshold(foreground[count], foreground[count], 250, 255, CV_THRESH_BINARY_INV);
 	}
-	Mask(original, foreground, numberOfFrames);
+	Mat M = Mask(original, foreground, numberOfFrames);
+	imshow("Mask", M);
+	waitKey();
 	return 0;
 }
