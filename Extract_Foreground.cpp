@@ -18,17 +18,17 @@ int main(int argc, char* argv[])
 		exit(0);
 	}
 	VideoCapture vid(argv[1]);
-	//namedWindow("Extraced Foreground");
 	BackgroundSubtractorMOG2 mog;
 	int numberOfFrames = vid.get(CV_CAP_PROP_FRAME_COUNT);
 	int count = 0;
 	Mat* frame = new Mat[numberOfFrames];
 	Mat* foreground = new Mat[numberOfFrames];
+	Mat* original = new Mat[numberOfFrames];
 	double alpha = 0.003;
 	for (; count < numberOfFrames; count++)
 	{
 		vid.read(frame[count]);
-		
+		original[count] = frame[count].clone();
 		cvtColor(frame[count], frame[count], CV_RGB2Lab);
 		vector<Mat> channels;
 		split(frame[count], channels);
@@ -38,23 +38,7 @@ int main(int argc, char* argv[])
 		merge(channels, frame[count]);
 
 		mog(frame[count], foreground[count], alpha);
-		//medianBlur(foreground, foreground, 7);
-		//gmg(frame[count], foreground, alpha);
-		cout << "current position: " << count + 1 << endl;
 		threshold(foreground[count], foreground[count], 128, 255, CV_THRESH_BINARY_INV);
-		//adaptiveThreshold(foreground, foreground, 255, CV_ADAPTIVE_THRESH_MEAN_C, CV_THRESH_BINARY_INV, 25, 10);
-		//imshow("Extraced Foreground", foreground);
-		//waitKey(5);
-		/*
-		char filename[50];
-		_itoa(count + 1, filename, 10);
-		strcat(filename, ".jpg");
-		imwrite(filename, foreground);
-		imwrite(filename, frame);
-		*/
 	}
-	//double* model = Modeling(frame, foreground, numberOfFrames);
-	//int total = Modeling(frame, foreground, numberOfFrames);
-	//cout << total << endl;
 	return 0;
 }
