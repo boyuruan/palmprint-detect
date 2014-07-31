@@ -50,7 +50,7 @@ void Mask(Mat* A, Mat* B, int numberOfFrames)
 			E.at<double>(Point(0, 0)) = (double)to_b - MM.at<double>(Point(0, 0));
 			E.at<double>(Point(0, 1)) = (double)to_g - MM.at<double>(Point(1, 0));
 			E.at<double>(Point(0, 2)) = (double)to_r - MM.at<double>(Point(2, 0));
-			Mat temp(1, 1, CV_64F);
+			Mat temp(1, 1, CV_64FC1);
 			temp = E.t()*cov.inv()*E;
 			Scalar ind = temp.at<double>(0, 0);
 			M.at<double>(Point(x, y)) = exp(ind.val[0]);
