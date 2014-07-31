@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
 	Mat* frame = new Mat[numberOfFrames];
 	Mat* foreground = new Mat[numberOfFrames];
 	Mat* original = new Mat[numberOfFrames];
-	double alpha = 0.003;
+	double alpha = 0.005;
 	for (; count < numberOfFrames; count++)
 	{
 		vid.read(frame[count]);
@@ -31,8 +31,7 @@ int main(int argc, char* argv[])
 		cvtColor(frame[count], frame[count], CV_RGB2Lab);
 		vector<Mat> channels;
 		split(frame[count], channels);
-		Mat a = channels.at(1);
-		Mat L = Mat::zeros(Size(a.cols, a.rows), CV_8U);
+		Mat L = Mat::zeros(Size(frame[count].cols, frame[count].rows), CV_8UC1);
 		channels.at(0) = L;
 		merge(channels, frame[count]);
 
@@ -40,9 +39,8 @@ int main(int argc, char* argv[])
 		threshold(foreground[count], foreground[count], 250, 255, CV_THRESH_BINARY_INV);
 	}
 	Mat M = Mask(original, foreground, numberOfFrames);
-	M.convertTo(M, CV_8U);
+	M.convertTo(M, CV_8UC1);
 	threshold(M, M, 0, 255, CV_THRESH_BINARY);
-	imshow("Mask", M);
-	waitKey();
+	imwrite("Mask.jpg", M);
 	return 0;
 }
