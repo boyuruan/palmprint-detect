@@ -1,11 +1,4 @@
-#include<opencv2\opencv.hpp>
-#include<opencv2\highgui\highgui.hpp>
-
-#include<iostream>
-#include<vector>
-
-using namespace cv;
-using namespace std;
+#incldue"function.h"
 
 vector<vector<double>> block_searching(Mat, Mat, int);
 
