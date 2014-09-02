@@ -47,7 +47,9 @@ int main(int argc, char* argv[])
 	Mat ad_image, rot, Mask_rot;
 	rotateImage(to_progress_po, ad_image, rot, angle * 180 / PI);
 	rotateImage(M, Mask_rot, rot, angle * 180 / PI);
-	Rect r(150, 330, 225, 225);//为配合CNN进行的裁剪
+	//******************************
+	Rect r(150, 330, 225, 225);
+	//******************************
 	Mat tp = ad_image(r);
 	Mat palm(300, 300, CV_8UC1);
 	cvtColor(tp, palm, CV_RGB2GRAY);
