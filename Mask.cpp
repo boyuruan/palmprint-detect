@@ -1,6 +1,6 @@
 #incldue"function.h"
 
-vector<vector<double>> block_searching(Mat, Mat, int);
+vector<vector<double>> block_searching(Mat, Mat);
 
 void Mask(Mat* A, Mat* B, int numberOfFrames)
 {
