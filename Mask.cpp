@@ -1,8 +1,8 @@
-#incldue"function.h"
+#include"function.h"
 
 vector<vector<double>> block_searching(Mat, Mat);
 
-void Mask(Mat* A, Mat* B, int numberOfFrames)
+Mat Mask(Mat* A, Mat* B, int numberOfFrames)
 {
 	Mat M = Mat::zeros(Size(A[0].cols, A[0].rows), CV_64FC1);
 	vector<vector<double>> Colors(3, vector<double>(0));
@@ -10,7 +10,7 @@ void Mask(Mat* A, Mat* B, int numberOfFrames)
 	int count = 0;
 	for (; count < numberOfFrames; count++)
 	{
-		Colors = block_searching(Colors, A[count], B[count]);
+		Colors = block_searching(A[count], B[count]);
 		
 		for (int k = 0; k < Colors[0].size(); k++)
 		{
